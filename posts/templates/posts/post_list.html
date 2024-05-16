@@ -12,11 +12,14 @@
     someone who’s open-minded, self-driven and who grew up with the internet.
     </h2>
 </p>
+{% with all_posts.count as total_post  %}
+    <p>Number of posts: {{ total_post }}</p>
+    {% endwith %}
 {% for p in all_posts %}
     <h2><a href="{{p.get_absolute_url}}"> {{ p.title }}</a></h2>
     <p>posted on {{ p.publish }}</p>
     <p>by {{ p.author }}</p>
-    <p>{{ p.content }}</p>
+    <p>{{ p.content|truncatewords:10 }}<a href="{{p.get_absolute_url}}">Read More...</a></p>
 {% endfor %}
 
 </body>
