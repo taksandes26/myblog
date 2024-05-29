@@ -7,20 +7,40 @@
 <h1>Welcome to my Site!</h1>
 <p>Student Blogs for Millennial Life</p>
 <p>
+<form method="get" action="{% url 'search_post' %}">
+    <input type="text" name="query" placeholder="search posts">
+    <input type="submit" value="Search">
+</form>
     <h2>Do your parents think you’re overly ‘sensitive’? Do you have a GIF for every occasion?
     If so, you’re probably a millennial, which means (contrary to what some folks might think)
     someone who’s open-minded, self-driven and who grew up with the internet.
     </h2>
 </p>
+
 {% with all_posts.count as total_post  %}
     <p>Number of posts: {{ total_post }}</p>
     {% endwith %}
-{% for p in all_posts %}
+{% for p in page_obj %}
     <h2><a href="{{p.get_absolute_url}}"> {{ p.title }}</a></h2>
     <p>posted on {{ p.publish }}</p>
     <p>by {{ p.author }}</p>
     <p>{{ p.content|truncatewords:10 }}<a href="{{p.get_absolute_url}}">Read More...</a></p>
 {% endfor %}
 
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+    </span>
+    <span>
+        Page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    <span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 </body>
 </html>
