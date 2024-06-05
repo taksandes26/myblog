@@ -1,17 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search Results For: {{ query }}</title>
+{% extends "base.html" %}
 
-</head>
-<body>
-{% if posts %}
-    {% for post in posts %}
-    <h2>{{ post.title }}</h2>
+{% block title %}Search{% endblock %}
+
+{% block content %}
+  {% if query %}
+    <h1>Posts containing "{{ query }}"</h1>
+    <h3>
+      {% with results.count as total_results %}
+        Found {{ total_results }} result{{ total_results|pluralize }}
+      {% endwith %}
+    </h3>
+    {% for post in results %}
+      <h4>
+        <a href="{{ post.get_absolute_url }}">
+          {{ post.title }}
+        </a>
+      </h4>
+      {{ post.content|truncatewords_html:12 }}
+    {% empty %}
+      <p>There are no results for your query.</p>
     {% endfor %}
-{% else %}
-    <p>No such posts found</p>
-{% endif %}
-</body>
-</html>
+    <p><a href="{% url 'posts:search_post' %}">Search again</a></p>
+  {% else %}
+    <h1>Search for posts</h1>
+    <form method="get">
+      {{ form.as_p }}
+      <input type="submit" value="Search">
+    </form>
+  {% endif %}
+{% endblock %}
