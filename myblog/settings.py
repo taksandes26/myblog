@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # 'posts.apps.PostsConfig',
     'posts',
     'taggit',
+    'rest_framework',
 
 ]
 

@@ -6,6 +6,7 @@ from datetime import date
 from taggit.managers import TaggableManager
 
 
+# custom manager like objects is a manager of model
 class PublishManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status='published')
@@ -16,6 +17,7 @@ class TotalPostManager(models.Manager):
         return super().get_queryset().count()
 
 
+# models
 class Post(models.Model):
     STATUS_CHOICES = (
         ('draft', 'DRAFT'),
