@@ -23,7 +23,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('dj-function-api/', include('posts.dj_function_api.urls', namespace='posts_api')),
     path('drf-api/', include('posts.drf_generic_api.urls', namespace='drf_generic_api')),
-    path('drf-api/', include('posts.drf_class_api.urls', namespace='drf_class_api'))
+    path('drf-api/', include('posts.drf_class_api.urls', namespace='drf_class_api')),
+    path('drf-api/', include('posts.drf_function_api.urls', namespace='drf_function_api')),
 
 ]
 
